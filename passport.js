@@ -1,5 +1,6 @@
 const passport    = require('passport');
 const passportJWT = require("passport-jwt");
+const config = require('./config/config')
 const ExtractJWT = passportJWT.ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy   = passportJWT.Strategy;
@@ -12,17 +13,7 @@ function Passport(User){
       },
       function (userName, password, done) {
           //this one is typically a DB call. Assume that the returned user object is pre-formatted and ready for storing in JWT
-          return _User.findOne({user: userName, password: password})
-                .exec( (err, user) => {
-                    if ( err )
-                      return done(err);
-                    else {
-                      if ( !user )
-                        return done(null, false, {message: "Incorrect user name."});
-                      return done(null, user, {message: 'Logged In Successfully'});
-                    }
-                });
-                /*
+          return _User.findOne({name: userName, password: password})
               .then( user => {
                 if (!user)
                   return done(null, false, {message: "Incorrect user name."});
@@ -31,13 +22,12 @@ function Passport(User){
               .catch( err => {
                 return done(err);
               });
-              */
       }
   ));
 
   passport.use(new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-        secretOrKey   : 'your_jwt_secret'
+        secretOrKey   : config.jwt.privateKey
     },
     function (jwtPayload, cb) {
 

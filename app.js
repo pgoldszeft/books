@@ -2,11 +2,13 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const path = require('path');
-const config = require('./config');
+const passport = require('passport');
+const config = require('./config/config');
 const mongoDb = require('./services/mongoDb');
 const UserModel = require('./models/user');
 const RoleModel = require('./models/role');
 
+var user = require('./routes/user');
 const auth = require('./routes/auth');
 
 const app = express();
@@ -16,6 +18,8 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'views')));
 
+//app.use('/', index);
+app.use('/user', passport.authenticate('jwt', {session: false}), user);
 app.use('/login', auth);
 
 app.use(function(req, res, next) {
@@ -53,9 +57,9 @@ async function initialize() {
 async function main(){
   try {
     await initialize();
-    let user = await User.find( { name: 'admin', password: 'admin' })
-                      .populate('role').exec();
-    console.log(JSON.stringify(user));
+//    let user = await User.find( { name: 'admin', password: 'admin' })
+//                      .populate('role').exec();
+//    console.log(JSON.stringify(user));
   } catch( err ){
     console.error("Catched an error.  Exiting...");
   }
