@@ -14,6 +14,7 @@ function Passport(User){
       function (userName, password, done) {
           //this one is typically a DB call. Assume that the returned user object is pre-formatted and ready for storing in JWT
           return _User.findOne({name: userName, password: password})
+              .populate('role').exec()
               .then( user => {
                 if (!user)
                   return done(null, false, {message: "Incorrect user name."});
@@ -32,7 +33,7 @@ function Passport(User){
     function (jwtPayload, cb) {
 
         //find the user in db if needed
-        return UserModel.findOneById(jwtPayload.id)
+        return _User.findOne(jwtPayload.user)
             .then(user => {
                 return cb(null, user);
             })

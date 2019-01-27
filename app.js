@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const logger = require('morgan');
 const path = require('path');
 const passport = require('passport');
 const config = require('./config/config');
@@ -12,6 +13,11 @@ var user = require('./routes/user');
 const auth = require('./routes/auth');
 
 const app = express();
+
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'pug');
+
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
