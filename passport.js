@@ -4,6 +4,8 @@ const config = require('./config/config')
 const ExtractJWT = passportJWT.ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy   = passportJWT.Strategy;
+const mongoose = require('mongoose');
+
 
 function Passport(User){
   let _User = User;
@@ -26,14 +28,26 @@ function Passport(User){
       }
   ));
 
+  let cookieExtractor = function(req) {
+      var token = null;
+      if (req && req.cookies)
+      {
+          token = req.cookies['session'];
+      }
+      return token;
+  };
+
   passport.use(new JWTStrategy({
-        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest: cookieExtractor,
+//        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('token'),
+//        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
         secretOrKey   : config.jwt.privateKey
     },
     function (jwtPayload, cb) {
-
+        const ObjectId = mongoose.Types.ObjectId;
         //find the user in db if needed
-        return _User.findOne(jwtPayload.user)
+        return _User.findOne( { _id: new ObjectId(jwtPayload._id) } )
+            .populate('role').exec()
             .then(user => {
                 return cb(null, user);
             })
@@ -42,6 +56,15 @@ function Passport(User){
             });
     }
   ));
+}
+
+passport.authenticationMiddleware = function authenticationMiddleware () {
+  return function (req, res, next) {
+    if (req.isAuthenticated()) {
+      return next()
+    }
+    res.redirect('/')
+  }
 }
 
 module.exports = Passport;

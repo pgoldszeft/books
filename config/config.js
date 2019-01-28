@@ -13,6 +13,10 @@ let config = {
 	},
 	server: {
 		port: 3000
+	},
+	redisStore: {
+		url: "redis://127.0.0.1",
+		secret: "kLKtQcBsp4"
 	}
 };
 
