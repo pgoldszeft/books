@@ -1,7 +1,9 @@
-function User( mongoDb ){
+const mongoose = require('mongoose');
+
+function Roles( ){
   const self = this;
 
-  let Schema = mongoDb.mongoose.Schema;
+  let Schema = mongoose.Schema;
   let RolesSchema = new Schema(
     {
       name: String,
@@ -9,7 +11,7 @@ function User( mongoDb ){
     }
   );
 
-  return mongoDb.mongoose.model('roles', RolesSchema);
+  return mongoose.model('roles', RolesSchema);
 }
 
-module.exports = User;
+module.exports = Roles();

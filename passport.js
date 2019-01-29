@@ -5,10 +5,23 @@ const ExtractJWT = passportJWT.ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy   = passportJWT.Strategy;
 const mongoose = require('mongoose');
+const userModel = require('./models/user');
 
+function findUser (username, callback) {
+  if (username === user.user) {
+    return callback(null, user)
+  }
+  return callback(null)
+}
+passport.serializeUser(function (user, cb) {
+  cb(null, user.user)
+})
 
-function Passport(User){
-  let _User = User;
+passport.deserializeUser(function (username, cb) {
+  findUser(username, cb)
+})
+
+  let _User = userModel;
   passport.use(new LocalStrategy({
           usernameField: 'user',
           passwordField: 'password'
@@ -38,9 +51,7 @@ function Passport(User){
   };
 
   passport.use(new JWTStrategy({
-        jwtFromRequest: cookieExtractor,
-//        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('token'),
-//        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('token'),
         secretOrKey   : config.jwt.privateKey
     },
     function (jwtPayload, cb) {
@@ -56,7 +67,6 @@ function Passport(User){
             });
     }
   ));
-}
 
 passport.authenticationMiddleware = function authenticationMiddleware () {
   return function (req, res, next) {
@@ -66,5 +76,3 @@ passport.authenticationMiddleware = function authenticationMiddleware () {
     res.redirect('/')
   }
 }
-
-module.exports = Passport;

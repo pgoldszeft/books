@@ -12,6 +12,8 @@ const mongoDb = require('./services/mongoDb');
 const UserModel = require('./models/user');
 const RoleModel = require('./models/role');
 
+require('./passport');
+
 const app = express();
 
 app.use(logger('dev'));
@@ -19,13 +21,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(session({
-  store: new RedisStore({
+let store = new RedisStore({
     url: config.redisStore.url,
     logErrors: true,
     client: redis
-  }),
-  name: 'jwt',
+});
+
+app.use(session({
+  store: store,
+  name: 'session',
   secret: config.redisStore.secret,
   resave: false,
   saveUninitialized: true,
@@ -49,10 +53,12 @@ app.use(express.static('views'));
 
 const user = require('./routes/user');
 const auth = require('./routes/auth');
+const book = require('./routes/book');
 
 //app.use('/', index);
-app.use('/user',  passport.authenticate('jwt', {session: false}), user);
+app.use('/user', passport.authenticate('jwt', {session: false}), user);
 app.use('/login', auth);
+app.use('/book', passport.authenticate('jwt', {session: false}), book);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -78,10 +84,9 @@ let Role;
 async function initialize() {
   try {
     let mongoose = await mongoDb.connect(config.db.url + '/' + config.db.name, {useNewUrlParser: false});
-    User = UserModel(mongoDb);
-    Role = RoleModel(mongoDb);
+    User = UserModel;
+    Role = RoleModel;
 
-    require('./passport')(User);
   } catch( err ) {
     throw err;
   };
@@ -91,7 +96,7 @@ async function main(){
   try {
     await initialize();
   } catch( err ){
-    console.error("Catched an error.  Exiting...");
+    console.error("Catched an error.  Exiting... " + err);
   }
 }
 
