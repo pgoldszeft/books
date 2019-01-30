@@ -12,6 +12,8 @@ const mongoDb = require('./services/mongoDb');
 const UserModel = require('./models/user');
 const RoleModel = require('./models/role');
 
+mongoDb.connect(config.db.url + '/' + config.db.name, {useNewUrlParser: false});
+
 require('./passport');
 
 const app = express();
@@ -78,27 +80,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-let User;
-let Role;
-
-async function initialize() {
-  try {
-    let mongoose = await mongoDb.connect(config.db.url + '/' + config.db.name, {useNewUrlParser: false});
-    User = UserModel;
-    Role = RoleModel;
-
-  } catch( err ) {
-    throw err;
-  };
-}
-
-async function main(){
-  try {
-    await initialize();
-  } catch( err ){
-    console.error("Catched an error.  Exiting... " + err);
-  }
-}
-
-main();
 app.listen(config.server.port, () => console.log(`App listening on port ${config.server.port}!`));

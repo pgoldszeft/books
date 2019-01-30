@@ -14,7 +14,28 @@ function User(){
     }
   );
 
-  return mongoose.model('users', UsersSchema);
+  self.mongoModel = mongoose.model('users', UsersSchema);
+
+  self.find = (arg) => {
+    return self.mongoModel
+                .find(arg)
+                .populate('role')
+                .exec();
+  }
+
+  self.findOne = (arg) => {
+    return self.mongoModel
+                .findOne(arg)
+                .populate('role')
+                .exec();
+  }
+
+  self.findById = (id) => {
+    return self.mongoModel
+                .findById(id)
+                .populate('role')
+                .exec();
+  }
 }
 
-module.exports = User();
+module.exports = new User();

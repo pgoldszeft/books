@@ -29,7 +29,6 @@ passport.deserializeUser(function (username, cb) {
       function (userName, password, done) {
           //this one is typically a DB call. Assume that the returned user object is pre-formatted and ready for storing in JWT
           return _User.findOne({name: userName, password: password})
-              .populate('role').exec()
               .then( user => {
                 if (!user)
                   return done(null, false, {message: "Incorrect user name."});
@@ -58,7 +57,6 @@ passport.deserializeUser(function (username, cb) {
         const ObjectId = mongoose.Types.ObjectId;
         //find the user in db if needed
         return _User.findOne( { _id: new ObjectId(jwtPayload._id) } )
-            .populate('role').exec()
             .then(user => {
                 return cb(null, user);
             })
