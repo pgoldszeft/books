@@ -1,12 +1,10 @@
-<img ng-src="{{$ctrl.book.images[0]}}" class="book" />
-
 <ul class="specs">
   <li>
     <dl>
       <dt>Title</dt>
       <dd>
 		<input type="text"  class="detailText"
-			ng-model="$ctrl.book.name" 
+			ng-model="$ctrl.book.name"
 			ng-change="$ctrl.update()"
 			ng-model-options="{ updateOn: 'default blur' }"
 		>
@@ -19,7 +17,7 @@
       <dt>Author</dt>
       <dd>
 		<input type="text" class="detailText"
-			ng-model="$ctrl.book.author" 
+			ng-model="$ctrl.book.author"
 			ng-change="$ctrl.update()"
 			ng-model-options="{ updateOn: 'default blur' }"
 		>
@@ -34,7 +32,7 @@
 		<div class="content" ng-model="$ctrl.book.imageUrl" ng-change="$ctrl.update()">
 			<img ng-src="{{$ctrl.book.imageUrl}}"></img>
 			<input type="text" class="detailText"
-				ng-model="$ctrl.book.imageUrl" 
+				ng-model="$ctrl.book.imageUrl"
 				ng-change="$ctrl.update()"
 				ng-model-options="{ updateOn: 'default blur' }"
 			>
@@ -48,7 +46,7 @@
       <dt>Description</dt>
       <dd>
 		<textarea type="text" class="detailTextArea"
-			ng-model="$ctrl.book.description" 
+			ng-model="$ctrl.book.description"
 			ng-model-options="{ updateOn: 'default blur' }"
 			ng-change="$ctrl.update()"></textarea>
 	  </dd>
