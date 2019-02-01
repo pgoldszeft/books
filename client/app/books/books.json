@@ -1,0 +1,20 @@
+[
+	{
+	  "bookId": 1,
+	  "name": "I Am Watching You",
+	  "author": "Teresa Driscoll",
+	  "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/915L5zUTrWL.__SL440_PJku-sticker-v7,TopRight,0,-44AC_SR201,266_OU1_.jpg"
+	}, 
+	{
+	  "bookId": 2,
+	  "name": "The Killer Collective",
+	  "author": "Barry Eisler",
+	  "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/91jPmMqEInL._AC_SR201,266_.jpg"
+	}, 
+	{
+	  "bookId": 3,
+	  "name": "The Snow Gypsy",
+	  "author": "Linday Jayne Ashford",
+	  "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/91jnWhYzvoL._AC_SR201,266_.jpg"
+	}
+]

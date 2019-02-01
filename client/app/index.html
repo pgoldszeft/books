@@ -1,0 +1,26 @@
+<!doctype html> 
+<html lang="en" ng-app="bookApp"> 
+	<head> <meta charset="utf-8">
+		<title>Google Phone Gallery</title>
+		<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="app.css" />
+		<script src="lib/angular/angular.js"></script>
+		<script src="lib/angular-route/angular-route.js"></script>
+		<script src="http://wzrd.in/standalone/uuid%2Fv1@latest"></script>
+
+		<script src="app.module.js"></script>
+		<script src="app.config.js"></script>
+
+		<script src="core/core.module.js"></script>
+		<script src="core/book/book.module.js"></script>
+		<script src="core/book/book.service.js"></script>
+		<script src="book-list/book-list.module.js"></script>
+		<script src="book-list/book-list.component.js"></script>
+		<script src="book-detail/book-detail.module.js"></script>
+		<script src="book-detail/book-detail.component.js"></script>
+
+	</head>
+	<body>
+		<div ng-view></div>
+	</body>
+</html>

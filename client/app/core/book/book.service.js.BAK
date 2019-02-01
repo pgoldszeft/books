@@ -1,0 +1,38 @@
+angular
+	.module('core.book')
+	.factory('Book', ['$http', '$q', function($http, $q){
+		let self = this;
+		return {
+			get: function (id) {
+					let deferred = $q.defer();
+					$http.get('books/books.json').then( response => {
+						let books = response.data;
+						let ret = id ? books.find(book => book.bookId == id) : books;
+						deferred.resolve( ret );
+					}, err => {
+						deferred.reject('Failed getting the books: ' + err.message);	
+					});
+
+					return deferred.promise;
+			},
+			set: function (book) {
+					let deferred = $q.defer();
+					$http.get('books/books.json').then( response => {
+						let booksList = response.data
+								.filter( item => item.bookId != book.bookId);
+						booksList.push(book);
+						$http.put( 'books/books.json', booksList )
+							.then( res => {
+								deferred.resolve( booksList );
+							})
+							.catch( err => {
+								console.error(err) 
+							});
+					}, err => {
+						deferred.reject('Failed posting the books: ' + err.message);	
+					});
+
+					return deferred.promise;
+			}
+		}
+	}]);

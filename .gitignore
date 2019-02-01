@@ -59,3 +59,6 @@ typings/
 
 # next.js build output
 .next
+
+# The lib directory
+client/app/lib

@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      <p>
+        Search:
+        <input ng-model="$ctrl.query">
+      </p>
+
+      <p>
+        Sort by:
+        <select ng-model="$ctrl.orderProp">
+          <option value="name">Title</option>
+          <option value="author">Author</option>
+        </select>
+      </p>
+
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+
+      <ul class="books">
+        <li ng-repeat="book in $ctrl.books | filter:$ctrl.query | orderBy:$ctrl.orderProp" class="thumbnail">
+		  <a href="#!/books/{{book.id}}" class="thumb">
+			  <img ng-src="{{book.imageUrl}}" alt="{{book.name}}" />
+		  </a>
+          <a href="#!/books/{{book.bookId}}">{{book.name}}</a>
+          <p>{{book.author}}</p>
+        </li>
+      </ul>
+		<div class="text-right">
+			<button type="button" class="btn btn-primary" ng-click="$ctrl.addBook()">Add</button>
+		</div>
+    </div>
+  </div>
+</div>

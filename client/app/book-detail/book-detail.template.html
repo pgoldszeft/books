@@ -1,0 +1,57 @@
+<img ng-src="{{$ctrl.book.images[0]}}" class="book" />
+
+<ul class="specs">
+  <li>
+    <dl>
+      <dt>Title</dt>
+      <dd>
+		<input type="text"  class="detailText"
+			ng-model="$ctrl.book.name" 
+			ng-change="$ctrl.update()"
+			ng-model-options="{ updateOn: 'default blur' }"
+		>
+		</input>
+	  </dd>
+    </dl>
+  </li>
+  <li>
+    <dl>
+      <dt>Author</dt>
+      <dd>
+		<input type="text" class="detailText"
+			ng-model="$ctrl.book.author" 
+			ng-change="$ctrl.update()"
+			ng-model-options="{ updateOn: 'default blur' }"
+		>
+		</input>
+	  </dd>
+    </dl>
+  </li>
+  <li>
+	<dl>
+      <dt>Thumbnail</dt>
+		  <dd>
+		<div class="content" ng-model="$ctrl.book.imageUrl" ng-change="$ctrl.update()">
+			<img ng-src="{{$ctrl.book.imageUrl}}"></img>
+			<input type="text" class="detailText"
+				ng-model="$ctrl.book.imageUrl" 
+				ng-change="$ctrl.update()"
+				ng-model-options="{ updateOn: 'default blur' }"
+			>
+			</input>
+		</div>
+		</dd>
+	</dl>
+  </li>
+  <li>
+    <dl>
+      <dt>Description</dt>
+      <dd>
+		<textarea type="text" class="detailTextArea"
+			ng-model="$ctrl.book.description" 
+			ng-model-options="{ updateOn: 'default blur' }"
+			ng-change="$ctrl.update()"></textarea>
+	  </dd>
+    </dl>
+  </li>
+</ul>
