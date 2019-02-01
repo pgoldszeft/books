@@ -10,6 +10,17 @@ function IsAllowedToWrite( req ){
       req.user.role.permissions.find( p => p == 'write' ));
 }
 
+/* GET books listing. */
+router.get('/', function(req, res, next) {
+  bookModel.find()
+      .then( books => {
+        res.json(books);
+      })
+      .catch( err => {
+        res.send( err );
+      });
+});
+
 /* GET books listing or a single book by ID. */
 router.get('/:bookId', function(req, res, next) {
   let query = req.params.bookId ? bookModel.findById(req.params.bookId) : bookModel.find();
@@ -43,6 +54,23 @@ router.post('/create', function(req, res, next){
 });
 
 /* POST book update. */
+router.post('/:bookId', function(req, res, next){
+  if ( !IsAllowedToWrite(req)) {
+    let error = new Error("Method not allowed.");
+    error.status = 405;
+    next (error);
+  }
+  else if ( req.params.bookId && req.body ){
+    bookModel.update( req.params.bookId, req.body )
+      .then( books => {
+        res.json(books);
+      })
+      .catch( err => {
+        next(err); }
+      );
+  }
+});
+
 router.delete('/:bookId', function(req, res, next) {
   if ( !IsAllowedToWrite(req)) {
     let error = new Error("Method not allowed.");
@@ -52,7 +80,7 @@ router.delete('/:bookId', function(req, res, next) {
   else if ( req.params.bookId ){
     bookModel.delete( req.params.bookId )
       .then( book => {
-        res.json( book._id );
+        res.json( book.id );
        } )
       .catch( err => {
         next(err);

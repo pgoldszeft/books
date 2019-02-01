@@ -23,6 +23,7 @@ function Book(){
       name: String,
       author: String,
       description: String,
+      imageUrl: String,
       genreid: { type: Schema.Types.ObjectId, ref: 'genres'},
       reviews: [bookReviewSchema]
     }
@@ -46,7 +47,10 @@ function Book(){
     return new Promise( (resolve, reject) => {
       self.mongoModel.create( args )
               .then( newBooks => {
-                resolve( newBooks.map( book => book._id ) );
+                if ( Array.isArray(newBooks) )
+                  resolve( newBooks.map( book => book._id ) );
+                else
+                  resolve( [ newBooks.id ] );
               })
               .catch( err => {
                 reject( err );

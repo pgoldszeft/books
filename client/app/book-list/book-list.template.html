@@ -22,11 +22,14 @@
 
       <ul class="books">
         <li ng-repeat="book in $ctrl.books | filter:$ctrl.query | orderBy:$ctrl.orderProp" class="thumbnail">
-		  <a href="#!/books/{{book.id}}" class="thumb">
-			  <img ng-src="{{book.imageUrl}}" alt="{{book.name}}" />
-		  </a>
+  		  <a href="#!/books/{{book.bookId}}" class="thumb">
+  			  <img ng-src="{{book.imageUrl}}" alt="{{book.name}}" />
+  		  </a>
           <a href="#!/books/{{book.bookId}}">{{book.name}}</a>
           <p>{{book.author}}</p>
+          <button type="button" class="trash-icon btn btn-default btn-sm" ng-click="$ctrl.deleteBook(book.bookId)">
+              <span class="glyphicon glyphicon-trash"></span>
+          </button>
         </li>
       </ul>
 		<div class="text-right">

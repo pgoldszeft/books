@@ -27,3 +27,7 @@ body {
 .detailTextArea {
 	width: 300px;
 }
+
+.trash-icon {
+  float: right;
+}
