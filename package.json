@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/pgoldszeft/books#readme",
   "dependencies": {
+    "bad-words": "^3.0.0",
     "body-parser": "^1.18.3",
     "connect-redis": "^3.4.0",
     "cookie-parser": "^1.4.3",

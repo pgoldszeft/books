@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const config = require('../config/config');
 //const promise = require('promise');
 
 function MongoDb() {
@@ -7,15 +8,19 @@ function MongoDb() {
   self.connected = false;
   self.connect = async (url) => {
     try {
-      await mongoose.connect(url);
-      self.connected = true;
-      self.mongoose = mongoose;
-      self.mongoose.set('debug', true);
+      if ( !self.connected ){
+        await mongoose.connect(url);
+        self.connected = true;
+        self.mongoose = mongoose;
+        self.mongoose.set('debug', config.db.debug);
+      }
     } catch( error ){
       console.error("Error connecting to MongoDB: " + error.message);
       throw (error);
     }
   }
+
+  self.connect(config.db.url + '/' + config.db.name, {useNewUrlParser: false});
 }
 
 module.exports = new MongoDb();

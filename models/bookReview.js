@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 
 function BookReview( ){
   const self = this;
-
+  let Schema = mongoose.Schema;
   let bookReviewSchema = new mongoose.Schema(
     {
-      user: { type: Schema.Types.ObjectId, ref: 'users'},
+      user: String,
       rating: Number,
       status: String,
       description: String

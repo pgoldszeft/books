@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const redis = require("../services/redis");
+const config = require("../config/config");
 
 function Book(){
   const self = this;
@@ -7,7 +9,7 @@ function Book(){
 
   let bookReviewSchema = new mongoose.Schema(
     {
-      user: { type: Schema.Types.ObjectId, ref: 'users'},
+      user: String,
       rating: Number,
       status: String,
       description: String
@@ -100,6 +102,13 @@ function Book(){
         })
     })
   }
+
+  self.queueReview = (id, review) => {
+      review.status = "Submitted";
+      review.book = id;
+      return redis.send( config.app.reviewsQueue, JSON.stringify(review) );
+  }
 }
+
 
 module.exports = new Book();

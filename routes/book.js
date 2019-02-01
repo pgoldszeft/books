@@ -61,19 +61,21 @@ router.delete('/:bookId', function(req, res, next) {
 });
 
 router.post("/review/:bookId", function(req, res, next) {
-  if ( !IsAllowedToWrite(req)) {
+  if ( !(req.isAuthenticated() && req.user) ){
     let error = new Error("Method not allowed.");
     error.status = 405;
     next (error);
   }
-  else if ( req.params.bookId && req.body ){
-    bookModel.addReview( req.params.bookId, req.body )
+
+  if ( req.params.bookId && req.body ){
+    req.body.user = req.user.name;
+    bookModel.queueReview( req.params.bookId, req.body )
       .then( book => {
         res.json( book );
-       } )
+       })
       .catch( err => {
         next(err);
-      } );
+      });
   }
 });
 

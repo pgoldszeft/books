@@ -12,7 +12,6 @@ const mongoDb = require('./services/mongoDb');
 const UserModel = require('./models/user');
 const RoleModel = require('./models/role');
 
-mongoDb.connect(config.db.url + '/' + config.db.name, {useNewUrlParser: false});
 
 require('./passport');
 

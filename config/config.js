@@ -3,9 +3,14 @@ const fs = require('fs');
 let privateKey = fs.readFileSync("./config/private.key");
 
 let config = {
+	app: {
+		reviewsQueue: 'comments',
+		badWordsFile: './config/badWords.txt'
+	},
 	db : {
 		url: "mongodb://localhost",
-		name: "BooksProject"
+		name: "BooksProject",
+		debug: true
 	},
 	jwt : {
 		privateKey: privateKey.toString(),
