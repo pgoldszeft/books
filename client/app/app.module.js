@@ -3,5 +3,6 @@ angular.module('bookApp', [
 	'core',
 	'login',
 	'bookDetail',
-	'bookList'
+	'bookList',
+	'review'
 ]);

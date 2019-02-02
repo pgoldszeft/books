@@ -2,16 +2,19 @@ angular.
   module('bookApp').
   config(['$routeProvider',
     function config($routeProvider) {
-      $routeProvider.
-        when('/login', {
+      $routeProvider
+        .when('/login', {
           template: '<login><login>'
-        }).
-        when('/books', {
+        })
+        .when('/books', {
           template: '<book-list></book-list>'
-        }).
-        when('/books/:bookId', {
+        })
+        .when('/books/:bookId', {
           template: '<book-detail></book-detail>'
-        }).
-        otherwise('/login');
+        })
+        .when('/review/:bookId', {
+          template: '<review><review>'
+        })
+        .otherwise('/login');
     }
   ]);

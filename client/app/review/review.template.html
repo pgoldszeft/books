@@ -1,0 +1,15 @@
+<div class="col-md-6">
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Rating</label>
+    <input type="number" class="form-control" id="exampleFormControlInput1" rows="1" ng-model="$ctrl.rating"></input>
+    <br>
+    <label for="exampleFormControlTextarea1">Review</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ng-model="$ctrl.review"></textarea>
+  </div>
+  <br>
+  <div class="text-right">
+    <button class="btn btn-primary mb-2" ng-click="$ctrl.submit()">Submit</button>
+    &nbsp;
+    <button class="btn btn-primary mb-2" ng-click="$ctrl.cancel()">Cancel</button>
+  </div>
+</div>

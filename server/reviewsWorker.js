@@ -22,7 +22,8 @@ async function handleReview( review ){
 
   review.status = filter.isProfane( review.description ) ? "Rejected" : "Accepted";
   try {
-    book.addReview(bookId, review);
+    if ( review.status == "Accepted")
+      book.addReview(bookId, review);
   } catch( err ){
     console.error(err);
   }

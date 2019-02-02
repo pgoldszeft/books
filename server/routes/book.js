@@ -10,6 +10,7 @@ function IsAllowedToWrite( req ){
       req.user.role.permissions.find( p => p == 'write' ));
 }
 
+
 /* GET books listing. */
 router.get('/', function(req, res, next) {
   bookModel.find()

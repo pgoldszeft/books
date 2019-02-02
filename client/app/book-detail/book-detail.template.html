@@ -1,55 +1,78 @@
-<ul class="specs">
-  <li>
-    <dl>
-      <dt>Title</dt>
-      <dd>
-		<input type="text"  class="detailText"
-			ng-model="$ctrl.book.name"
-			ng-change="$ctrl.update()"
-			ng-model-options="{ updateOn: 'default blur' }"
-		>
-		</input>
-	  </dd>
-    </dl>
-  </li>
-  <li>
-    <dl>
-      <dt>Author</dt>
-      <dd>
-		<input type="text" class="detailText"
-			ng-model="$ctrl.book.author"
-			ng-change="$ctrl.update()"
-			ng-model-options="{ updateOn: 'default blur' }"
-		>
-		</input>
-	  </dd>
-    </dl>
-  </li>
-  <li>
-	<dl>
-      <dt>Thumbnail</dt>
-		  <dd>
-		<div class="content" ng-model="$ctrl.book.imageUrl" ng-change="$ctrl.update()">
-			<img ng-src="{{$ctrl.book.imageUrl}}"></img>
-			<input type="text" class="detailText"
-				ng-model="$ctrl.book.imageUrl"
-				ng-change="$ctrl.update()"
-				ng-model-options="{ updateOn: 'default blur' }"
-			>
-			</input>
-		</div>
-		</dd>
-	</dl>
-  </li>
-  <li>
-    <dl>
-      <dt>Description</dt>
-      <dd>
-		<textarea type="text" class="detailTextArea"
-			ng-model="$ctrl.book.description"
-			ng-model-options="{ updateOn: 'default blur' }"
-			ng-change="$ctrl.update()"></textarea>
-	  </dd>
-    </dl>
-  </li>
-</ul>
+<div class="container">
+<div class="row">
+  <div class="col-md-12 text-right">
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.back()">Close</button>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-6">
+    <ul class="specs">
+      <li>
+        <dl>
+          <dt>Title</dt>
+          <dd>
+    		<input type="text"  class="detailText"
+    			ng-model="$ctrl.book.name"
+    			ng-change="$ctrl.update()"
+    			ng-model-options="{ updateOn: 'default blur' }"
+    		>
+    		</input>
+    	  </dd>
+        </dl>
+      </li>
+      <li>
+        <dl>
+          <dt>Author</dt>
+          <dd>
+    		<input type="text" class="detailText"
+    			ng-model="$ctrl.book.author"
+    			ng-change="$ctrl.update()"
+    			ng-model-options="{ updateOn: 'default blur' }"
+    		>
+    		</input>
+    	  </dd>
+        </dl>
+      </li>
+      <li>
+    	<dl>
+          <dt>Thumbnail</dt>
+    		  <dd>
+    		<div class="content" ng-model="$ctrl.book.imageUrl" ng-change="$ctrl.update()">
+    			<img ng-src="{{$ctrl.book.imageUrl}}"></img>
+    			<input type="text" class="detailText"
+    				ng-model="$ctrl.book.imageUrl"
+    				ng-change="$ctrl.update()"
+    				ng-model-options="{ updateOn: 'default blur' }"
+    			>
+    			</input>
+    		</div>
+    		</dd>
+    	</dl>
+      </li>
+      <li>
+        <dl>
+          <dt>Description</dt>
+          <dd>
+    		<textarea type="text" class="detailTextArea"
+    			ng-model="$ctrl.book.description"
+    			ng-model-options="{ updateOn: 'default blur' }"
+    			ng-change="$ctrl.update()"></textarea>
+    	  </dd>
+        </dl>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+      <button type="button" class="btn btn-primary" ng-click="$ctrl.addReview()">Add Review</button>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="review in $ctrl.book.reviews">
+          <p id="user">{{review.user}}</p>
+          <p id="rating">Rating: {{review.rating}}</p>
+          <p id="description">{{review.description}}</p>
+        </li>
+      </ul>
+  </ul>
+</div>
+</div>
+</div>
