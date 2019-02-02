@@ -6,55 +6,34 @@
 </div>
 <br>
 <div class="row">
-  <div class="col-md-6">
-    <ul class="specs">
-      <li>
-        <dl>
-          <dt>Title</dt>
-          <dd>
-    		<input type="text"  class="detailText"
-    			ng-model="$ctrl.book.name"
-    			ng-change="$ctrl.update()"
-    			ng-model-options="{ updateOn: 'default blur' }"
-    		>
-    		</input>
-    	  </dd>
-        </dl>
-      </li>
-      <li>
-        <dl>
-          <dt>Author</dt>
-          <dd>
-    		<input type="text" class="detailText"
-    			ng-model="$ctrl.book.author"
-    			ng-change="$ctrl.update()"
-    			ng-model-options="{ updateOn: 'default blur' }"
-    		>
-    		</input>
-    	  </dd>
-        </dl>
-      </li>
-      <li>
-    	<dl>
-          <dt>Thumbnail</dt>
-    		  <dd>
-    		<div class="content" ng-model="$ctrl.book.imageUrl" ng-change="$ctrl.update()">
-    			<img ng-src="{{$ctrl.book.imageUrl}}"></img>
-    			<input type="text" class="detailText"
-    				ng-model="$ctrl.book.imageUrl"
-    				ng-change="$ctrl.update()"
-    				ng-model-options="{ updateOn: 'default blur' }"
-    			>
-    			</input>
-    		</div>
-    		</dd>
-    	</dl>
-      </li>
-      <li>
-        <dl>
-          <dt>Description</dt>
-          <dd>
-    		<textarea type="text" class="detailTextArea"
+  <div class="col-md-6 form-group">
+    <label for="name">Title</label>
+		<input type="text"  id="name" class="form-control"
+			ng-model="$ctrl.book.name"
+			ng-change="$ctrl.update()"
+			ng-model-options="{ updateOn: 'default blur' }"
+		></input>
+
+    <label for="author">Author</label>
+		<input id="author" type="text" class="form-control"
+			ng-model="$ctrl.book.author"
+			ng-change="$ctrl.update()"
+			ng-model-options="{ updateOn: 'default blur' }"
+		></input>
+
+    <label for="thumbnail">Thumbnail</label>
+    <input id="thumbnail" type="text" class="form-control"
+      ng-model="$ctrl.book.imageUrl"
+      ng-change="$ctrl.update()"
+      ng-model-options="{ updateOn: 'default blur' }"
+    ></input>
+
+		<div class="content" ng-model="$ctrl.book.imageUrl" ng-change="$ctrl.update()">
+			<img ng-src="{{$ctrl.book.imageUrl}}"></img>
+		</div>
+
+    <label for="description">Description</label>
+    <textarea id="description" type="text" class="form-control" rows="10"
     			ng-model="$ctrl.book.description"
     			ng-model-options="{ updateOn: 'default blur' }"
     			ng-change="$ctrl.update()"></textarea>
