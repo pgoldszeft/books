@@ -7,20 +7,6 @@ const JWTStrategy   = passportJWT.Strategy;
 const mongoose = require('mongoose');
 const userModel = require('./models/user');
 
-function findUser (username, callback) {
-  if (username === user.user) {
-    return callback(null, user)
-  }
-  return callback(null)
-}
-passport.serializeUser(function (user, cb) {
-  cb(null, user.user)
-})
-
-passport.deserializeUser(function (username, cb) {
-  findUser(username, cb)
-})
-
   let _User = userModel;
   passport.use(new LocalStrategy({
           usernameField: 'user',
@@ -65,12 +51,3 @@ passport.deserializeUser(function (username, cb) {
             });
     }
   ));
-
-passport.authenticationMiddleware = function authenticationMiddleware () {
-  return function (req, res, next) {
-    if (req.isAuthenticated()) {
-      return next()
-    }
-    res.redirect('/')
-  }
-}
