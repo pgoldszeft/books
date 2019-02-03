@@ -62,3 +62,7 @@ typings/
 
 # The lib directory
 client/app/lib
+
+# Vim swap files
+.swp
+*.swp
