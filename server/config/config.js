@@ -8,8 +8,7 @@ let config = {
 		badWordsFile: './config/badWords.txt'
 	},
 	db : {
-		url: "mongodb://localhost",
-		name: "BooksProject",
+		url: "mongodb://localhost/BooksProject",
 		debug: true
 	},
 	jwt : {
