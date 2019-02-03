@@ -6,12 +6,6 @@ var Filter = require('bad-words'),
     filter = new Filter({placeHolder: '*'});
 const fs = require('fs');
 
-if ( fs.existsSync( config.app.badWordsFile )){
-  let text = fs.readFileSync( config.app.badWordsFile, 'utf8' );
-  let badWords = text.split('\n');
-  //filter.addWords(...badWords);
-}
-
 async function handleReview( review ){
   if ( !review.book )
     return;
@@ -26,7 +20,9 @@ async function handleReview( review ){
       book.addReview(bookId, review);
   } catch( err ){
     console.error(err);
+    throw err;
   }
+  return review.status;
 }
 
 async function readOneReview() {
@@ -35,14 +31,21 @@ async function readOneReview() {
       return JSON.parse(data[1]);
     } catch (err) {
       console.error(err);
+      throw err;
     }
 }
 
 async function readReviews() {
   while(true){
-    let review = await readOneReview();
-    handleReview(review);
-    console.log(review);
+    try {
+      let review = await readOneReview();
+      if ( review ){
+        handleReview(review);
+        console.log(review);
+      }
+    } catch (err){
+      console.log(review);
+    }
   }
 }
 
