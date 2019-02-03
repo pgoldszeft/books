@@ -15,7 +15,7 @@
           <option value="author">Author</option>
         </select>
       </p>
-      <div class="text-right">
+      <div class="text-right" ng-hide="!$ctrl.canEdit()" >
   			<button type="button" class="btn btn-primary" ng-click="$ctrl.addBook()">Add</button>
   		</div>
 
@@ -30,7 +30,7 @@
   		  </a>
           <a href="#!/books/{{book.bookId}}">{{book.name}}</a>
           <p>{{book.author}}</p>
-          <button type="button" class="trash-icon btn btn-default btn-sm" ng-click="$ctrl.deleteBook(book.bookId)">
+          <button type="button" class="trash-icon btn btn-default btn-sm" ng-hide="!$ctrl.canEdit()" ng-click="$ctrl.deleteBook(book.bookId)">
               <span class="glyphicon glyphicon-trash"></span>
           </button>
         </li>

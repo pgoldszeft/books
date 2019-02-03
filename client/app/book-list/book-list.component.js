@@ -14,9 +14,14 @@ angular.
         self.books = booksList;
       }
 
-  		Book.get().then( response =>{
-  			self.setBooksList( response );
-  		});
+		if ( Book.isAuthenticated() ){
+			Book.get().then( response =>{
+					self.setBooksList( response );
+			});
+		}
+		else
+			$location.path("/login");
+
   		self.addBook = () => {
   			console.log("Add book");
   			Book.create( {
@@ -47,6 +52,15 @@ angular.
             console.log("Failed deleting a book: " + err );
           });
       };
+
+		self.canEdit = () =>{
+			if ( !Book.user ){
+				$location.path( "/login" );
+				return false;
+			}
+			let foundItems = Book.user.role.permissions.find( perm => perm == 'write' );
+			return typeof foundItems != "undefined"
+		};
 
   	}]
   });

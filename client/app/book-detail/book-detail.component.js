@@ -16,5 +16,13 @@ angular.
       self.back = () => {
         $location.path('/books');
       }
+		self.canEdit = () =>{
+			if ( !Book.user ){
+				$location.path( "/login" );
+				return false;
+			}
+			let foundItems = Book.user.role.permissions.find( perm => perm == 'write' );
+			return typeof foundItems != "undefined"
+		};
     }]
   });
