@@ -1,7 +1,8 @@
 
 function BookService( $http, $q, $rootScope ) {
 	let self = this;
-	let backendUrl = 'http://34.245.50.15:3000';
+//	let backendUrl = 'http://34.245.50.15:3000';
+	let backendUrl = "";
 
 	self.get = (id) => {
 		let deferred = $q.defer();
