@@ -1,5 +1,8 @@
 #!/bin/bash
 
+INPUT_FILE=books.zip
+OUTPUT_DIR=dist
+
 get_abs_filename() {
   # $1 : relative filename
   echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
