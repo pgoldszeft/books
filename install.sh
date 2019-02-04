@@ -40,6 +40,10 @@ fi
 INPUT_FILE_PATH=$(get_abs_filename $INPUT_FILE)
 OUTPUT_FULL_PATH=$(get_abs_filename $OUTPUT_DIR)
 
+if [ -d $OUTPUT_FULL_PATH ]; then
+	rm -rf $OUTPUT_FULL_PATH
+fi
+
 mkdir -p $OUTPUT_FULL_PATH
 cd $OUTPUT_FULL_PATH
 unzip $INPUT_FILE_PATH
