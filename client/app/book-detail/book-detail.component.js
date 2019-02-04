@@ -2,7 +2,7 @@ angular.
   module('bookDetail').
   component('bookDetail', {
     templateUrl: 'book-detail/book-detail.template.html',
-    controller: ['Book', "$routeParams", "$location", function PhoneDetailController(Book, $routeParams, $location) {
+    controller: ['AuthenticationService', 'Book', "$routeParams", "$location", function PhoneDetailController(AuthenticationService, Book, $routeParams, $location) {
   		let self = this;
       self.bookId = $routeParams.bookId;
   		self.book = Book.get(self.bookId).then( book => { self.book = book } );
@@ -17,12 +17,7 @@ angular.
         $location.path('/books');
       }
 		self.canEdit = () =>{
-			if ( !Book.user ){
-				$location.path( "/login" );
-				return false;
-			}
-			let foundItems = Book.user.role.permissions.find( perm => perm == 'write' );
-			return typeof foundItems != "undefined"
+			return AuthenticationService.canEdit();
 		};
     }]
   });

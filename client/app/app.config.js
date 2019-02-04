@@ -15,6 +15,6 @@ angular.
         .when('/review/:bookId', {
           template: '<review><review>'
         })
-        .otherwise('/login');
+        .otherwise('/books');
     }
   ]);

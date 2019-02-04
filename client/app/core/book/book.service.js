@@ -1,5 +1,5 @@
 
-function BookService( $http, $q, $rootScope ) {
+function BookService( AuthenticationService, $http, $q, $rootScope ) {
 	let self = this;
 //	let backendUrl = 'http://34.245.50.15:3000';
 	let backendUrl = "";
@@ -7,15 +7,14 @@ function BookService( $http, $q, $rootScope ) {
 	self.get = (id) => {
 		let deferred = $q.defer();
 
-		if ( !self.isAuthenticated() ){
+		if ( !AuthenticationService.isAuthenticated() ){
 			deferred.reject("Not authenticated");
 			return deferred.promise;
 		}
 
 		$http({
 			url: backendUrl + '/book' + ( id ? '/' + id : ''),
-			method: 'GET',
-			params: { token: self.token }
+			method: 'GET'
 		}).then( response => {
 			let books = response.data;
 			if ( Array.isArray(books) )
@@ -34,7 +33,7 @@ function BookService( $http, $q, $rootScope ) {
 	self.set = (book) => {
 		let deferred = $q.defer();
 
-		if ( !self.isAuthenticated() ){
+		if ( !AuthenticationService.isAuthenticated() ){
 			deferred.reject("Not authenticated");
 			return deferred.promise;
 		}
@@ -45,7 +44,6 @@ function BookService( $http, $q, $rootScope ) {
 			$http({
 				url: backendUrl + "/book/" + book.bookId,
 				method: 'POST',
-				params: { token: self.token },
 				data: book
 			})
 			.then( response => {
@@ -63,7 +61,7 @@ function BookService( $http, $q, $rootScope ) {
 	self.create = (book) =>{
 		let deferred = $q.defer();
 
-		if ( !self.isAuthenticated() ){
+		if ( !AuthenticationService.isAuthenticated() ){
 			deferred.reject("Not authenticated");
 			return deferred.promise;
 		}
@@ -74,7 +72,6 @@ function BookService( $http, $q, $rootScope ) {
 			$http({
 				url: backendUrl + "/book/create",
 				method: 'POST',
-				params: { token: self.token },
 				data: book
 			})
 			.then( response => {
@@ -89,7 +86,7 @@ function BookService( $http, $q, $rootScope ) {
 
 	self.delete = ( book ) => {
 		let deferred = $q.defer();
-		if ( !self.isAuthenticated() ){
+		if ( !AuthenticationService.isAuthenticated() ){
 			deferred.reject("Not authenticated");
 			return deferred.promise;
 		}
@@ -99,8 +96,7 @@ function BookService( $http, $q, $rootScope ) {
 			let id = typeof book === 'object' ? book.bookId : book;
 			$http({
 				url: backendUrl + "/book/" + id.toString(),
-				method: 'DELETE',
-				params: { token: self.token }
+				method: 'DELETE'
 			})
 			.then( response => {
 				self.get()
@@ -120,15 +116,14 @@ function BookService( $http, $q, $rootScope ) {
 
 	self.addReview = ( bookId, review ) => {
 		let deferred = $q.defer();
-		if ( !self.isAuthenticated() ){
+		if ( !AuthenticationService.isAuthenticated() ){
 			deferred.reject("Not authenticated");
 			return deferred.promise;
 		}
 		$http({
 			url: backendUrl + "/book/review/" + bookId.toString(),
 			method: 'POST',
-			data: review,
-			params: { token: self.token }
+			data: review
 		})
 		.then( response => {
 			deferred.resolve(response);
@@ -137,40 +132,14 @@ function BookService( $http, $q, $rootScope ) {
 			deferred.reject(err);
 		});
 		return deferred.promise;
-	}
-
-	self.login = ( user, password ) => {
-		let deferred = $q.defer();
-		$http({
-			url: backendUrl + "/login/login",
-			method: 'POST',
-			data: {
-				user: user,
-				password: password
-			}
-		})
-		.then( response => {
-			self.token = response.data.token;
-			self.user = response.data.user;
-			deferred.resolve(response);
-		})
-		.catch( err => {
-			deferred.reject(err);
-		});
-		return deferred.promise;
-
-	}
-
-	self.isAuthenticated = () => {
-		return self.user && self.user !== null;
 	}
 }
 
 angular
 	.module('core.book')
-	.factory('Book', ['$http', '$q', '$rootScope', function($http, $q, $rootScope){
+	.factory('Book', ['AuthenticationService', '$http', '$q', '$rootScope', function(AuthenticationService, $http, $q, $rootScope){
 		let self = this;
 		self.$rootScope = $rootScope;
 
-		return new BookService($http, $q, $rootScope);
+		return new BookService(AuthenticationService, $http, $q, $rootScope);
 	}]);

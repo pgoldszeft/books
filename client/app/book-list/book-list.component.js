@@ -5,7 +5,7 @@ angular.
   module('bookList').
   component('bookList', {
     templateUrl: 'book-list/book-list.template.html',
-    controller: ['$location', 'Book', function BookListController($location, Book){
+    controller: ['$location', 'Book', 'AuthenticationService', function BookListController($location, Book, AuthenticationService){
   		let self = this;
   		self.query = "";
   		self.orderProp = 'name';
@@ -14,7 +14,7 @@ angular.
         self.books = booksList;
       }
 
-		if ( Book.isAuthenticated() ){
+		if ( AuthenticationService.isAuthenticated() ){
 			Book.get().then( response =>{
 					self.setBooksList( response );
 			});
@@ -54,13 +54,7 @@ angular.
       };
 
 		self.canEdit = () =>{
-			if ( !Book.user ){
-				$location.path( "/login" );
-				return false;
-			}
-			let foundItems = Book.user.role.permissions.find( perm => perm == 'write' );
-			return typeof foundItems != "undefined"
+			return AuthenticationService.canEdit();
 		};
-
   	}]
   });

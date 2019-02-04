@@ -36,7 +36,7 @@ const userModel = require('./models/user');
   };
 
   passport.use(new JWTStrategy({
-        jwtFromRequest: ExtractJWT.fromUrlQueryParameter('token'),
+        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
         secretOrKey   : config.jwt.privateKey
     },
     function (jwtPayload, cb) {
