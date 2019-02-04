@@ -9,7 +9,7 @@ function MongoDb() {
   self.connect = async (url) => {
     try {
       if ( !self.connected ){
-        await mongoose.connect(url, {useNewUrlParser: false});
+        await mongoose.connect(url, {useNewUrlParser: true});
         self.connected = true;
         self.mongoose = mongoose;
         self.mongoose.set('debug', config.db.debug);
