@@ -32,9 +32,8 @@ angular.
 				imageUrl: "http://i.imgur.com/sJ3CT4V.gif"
   			})
   			.then( bookList => {
-  				//self.books = bookList;
-          let id = Array.isArray(bookList) ? bookList[0] : bookList;
-          $location.path('/books/' + id);
+			  let id = Array.isArray(bookList) ? bookList[0] : bookList;
+			  $location.path('/books/' + id);
   			});
   		};
 

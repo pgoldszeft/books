@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-let privateKey = fs.readFileSync("./config/private.key");
+let privateKey = fs.readFileSync( process.env.PRIVATE_KEY_FILE || "./config/private.key");
 
 let config = {
 	app: {
@@ -8,19 +8,19 @@ let config = {
 		badWordsFile: './config/badWords.txt'
 	},
 	db : {
-		url: "mongodb://localhost/BooksProject",
-		debug: true
+		url: process.env.MONGO_URL || "mongodb://localhost/BooksProject",
+		debug: process.env.MONGO_DEBUG || true
 	},
 	jwt : {
 		privateKey: privateKey.toString(),
-		expiresIn: 604800		// 1 week
+		expiresIn: process.env.TOKEN_TTL || 604800		// 1 week
 	},
 	server: {
-		port: 3000
+		port: process.env.SERVER_PORT || 3000
 	},
 	redisStore: {
-		url: "redis://127.0.0.1",
-		secret: "kLKtQcBsp4"
+		url: process.env.REDIS_URL || "redis://127.0.0.1",
+		secret: process.env.REDIS_SECRET || "kLKtQcBsp4"
 	}
 };
 

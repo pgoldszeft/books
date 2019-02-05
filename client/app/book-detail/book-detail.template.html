@@ -2,6 +2,7 @@
 <header></header>
 <div class="row">
   <div class="col-md-12 text-right">
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.update()">Save</button>
     <button type="button" class="btn btn-primary" ng-click="$ctrl.back()">Close</button>
   </div>
 </div>
@@ -11,7 +12,6 @@
     <label for="name">Title</label>
 		<input type="text"  id="name" class="form-control"
 			ng-model="$ctrl.book.name"
-			ng-change="$ctrl.update()"
 			ng-readonly="!$ctrl.canEdit()"
 			ng-model-options="{ updateOn: 'default blur' }"
 		></input>
@@ -19,17 +19,15 @@
     <label for="author">Author</label>
 		<input id="author" type="text" class="form-control"
 			ng-model="$ctrl.book.author"
-			ng-change="$ctrl.update()"
 			ng-readonly="!$ctrl.canEdit()"
 			ng-model-options="{ updateOn: 'default blur' }"
 		></input>
 
     <label for="thumbnail">Thumbnail</label>
     <input id="thumbnail" type="text" class="form-control"
-      ng-model="$ctrl.book.imageUrl"
-      ng-change="$ctrl.update()"
+		ng-model="$ctrl.book.imageUrl"
 		ng-readonly="!$ctrl.canEdit()"
-      ng-model-options="{ updateOn: 'default blur' }"
+      	ng-model-options="{ updateOn: 'default blur' }"
     ></input>
 
 		<div class="content" ng-model="$ctrl.book.imageUrl" ng-change="$ctrl.update()">
@@ -40,8 +38,7 @@
     <textarea id="description" type="text" class="form-control" rows="10"
     			ng-model="$ctrl.book.description"
     			ng-model-options="{ updateOn: 'default blur' }"
-				ng-readonly="!$ctrl.canEdit()"
-    			ng-change="$ctrl.update()"></textarea>
+				ng-readonly="!$ctrl.canEdit()"></textarea>
     	  </dd>
         </dl>
       </li>

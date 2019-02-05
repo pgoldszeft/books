@@ -8,6 +8,7 @@ angular.
   		self.book = Book.get(self.bookId).then( book => { self.book = book } );
   		self.update = () => {
   			Book.set(self.book);
+			self.back();
   		}
       self.addReview = () => {
         $location.path('/review/' + self.bookId);
