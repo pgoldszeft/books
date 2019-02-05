@@ -39,7 +39,6 @@ angular.module('core.authentication')
 
 			let user = $rootScope.globals.user;
 			if ( !user ){
-				$location.path( "/login" );
 				return false;
 			}
 			let foundItems = user.role.permissions.find( perm => perm == 'write' );

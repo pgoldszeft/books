@@ -29,7 +29,7 @@ angular.
   				name: "Default book name",
   				author: "Default author name",
   				description: "Default description",
-          imageUrl: "http://i.imgur.com/sJ3CT4V.gif"
+				imageUrl: "http://i.imgur.com/sJ3CT4V.gif"
   			})
   			.then( bookList => {
   				//self.books = bookList;
@@ -40,13 +40,8 @@ angular.
 
       self.deleteBook = (id) => {
         Book.delete( id )
-          .then( () => {
-            Book.get().then( response => {
-              self.setBooksList( response );
-            })
-            .catch( err => {
-              console.log("Failed reading the list of books: " + err );
-            });
+          .then( (repliedId) => {
+			self.setBooksList( self.books.filter( book => book.bookId != repliedId ) );
           })
           .catch( err => {
             console.log("Failed deleting a book: " + err );

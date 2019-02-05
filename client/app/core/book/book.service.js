@@ -99,13 +99,7 @@ function BookService( AuthenticationService, $http, $q, $rootScope ) {
 				method: 'DELETE'
 			})
 			.then( response => {
-				self.get()
-					.then( response => {
-						deferred.resolve( response );
-					})
-					.catch( err => {
-						deferred.reject(err);
-					});
+				deferred.resolve( response.data );
 			})
 			.catch( err => {
 				deferred.reject(err);

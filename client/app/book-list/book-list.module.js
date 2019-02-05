@@ -1,5 +1,6 @@
 'use strict';
 
 angular.module('bookList', [
-	'core.book'
+	'core.book',
+	'header'
 ]);
